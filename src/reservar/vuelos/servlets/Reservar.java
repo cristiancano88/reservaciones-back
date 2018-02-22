@@ -40,18 +40,30 @@ public class Reservar extends HttpServlet {
      * response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("content-type", "application/json;charset=UTF-8");
-        response.setHeader("application", "reservaciones");
-        response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
-        response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("content-type", "application/json;charset=UTF-8");
+    	response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+      response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
+      response.addHeader("Access-Control-Allow-Credentials", "true");
+      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+    	
+    	
+//        response.setHeader("content-type", "application/json;charset=UTF-8");
+//        response.setHeader("application", "reservaciones");
+//        response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
+//        response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        response.setHeader("content-type", "application/json;charset=UTF-8");
+        
 //        response.setContentType("application/json");
 //        response.setCharacterEncoding("utf-8");
+        
 //      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-//      response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-//      response.addHeader("Access-Control-Allow-Credentials", "true");
+//      response.addHeader("Access-Control-Allow-Headers","X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
 //      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        
+//      response.addHeader("Access-Control-Allow-Credentials", "true");
+
 
 
         Utilidades.required(request, response, "data");
@@ -74,12 +86,12 @@ public class Reservar extends HttpServlet {
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setHeader("content-type", "application/json;charset=UTF-8");
-        response.setHeader("application", "reservaciones");
-        response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
-        response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("content-type", "application/json;charset=UTF-8");
+    	response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+      response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
+      response.addHeader("Access-Control-Allow-Credentials", "true");
+      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 //        response.setContentType("application/json");
 //        response.setCharacterEncoding("utf-8");
 //      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
