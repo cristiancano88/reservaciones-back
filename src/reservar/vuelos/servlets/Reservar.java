@@ -1,11 +1,9 @@
 package reservar.vuelos.servlets;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -25,108 +23,80 @@ import reservar.vuelos.util.Utilidades;
 @WebServlet("/post.reservar")
 public class Reservar extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Reservar() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Reservar() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-      response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-      response.addHeader("Access-Control-Allow-Credentials", "true");
-      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    	
-    	
-//        response.setHeader("content-type", "application/json;charset=UTF-8");
-//        response.setHeader("application", "reservaciones");
-//        response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"));
-//        response.setHeader("Access-Control-Allow-Methods", request.getHeader("Access-Control-Request-Method"));
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("content-type", "application/json;charset=UTF-8");
-        
-//        response.setContentType("application/json");
-//        response.setCharacterEncoding("utf-8");
-        
-//      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-//      response.addHeader("Access-Control-Allow-Headers","X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
-//      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-        
-//      response.addHeader("Access-Control-Allow-Credentials", "true");
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
+		response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
+		Utilidades.required(request, response, "data");
+		JsonObject data = (JsonObject) new JsonParser().parse(request.getParameter("data"));
+		IReservaController reservaController = new ReservaController();
+		JsonObject ret = null;
+		try {
+			ret = reservaController.reservar(data);
+		} catch (NamingException | SQLException ex) {
+			Logger.getLogger(GetReservasByCedula.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (DAOException ex) {
+			Logger.getLogger(Reservar.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
+		response.getWriter().write(ret.toString());
+	}
 
-        Utilidades.required(request, response, "data");
-        JsonObject data = (JsonObject) new JsonParser().parse(request.getParameter("data"));
-        IReservaController reservaController = new ReservaController();
-        JsonObject ret = null;
-        try {
-            ret = reservaController.reservar(data);
-        } catch (NamingException | SQLException ex) {
-            Logger.getLogger(GetReservasByCedula.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DAOException ex) {
-            Logger.getLogger(Reservar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		response.addHeader("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
+		response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
-        response.getWriter().write(ret.toString());
-    }
-    
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     * response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-      response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-      response.addHeader("Access-Control-Allow-Credentials", "true");
-      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-//        response.setContentType("application/json");
-//        response.setCharacterEncoding("utf-8");
-//      response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-//      response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-//      response.addHeader("Access-Control-Allow-Credentials", "true");
-//      response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+		Utilidades.required(request, response, "data");
+		JsonObject data = (JsonObject) new JsonParser().parse(request.getParameter("data"));
+		IReservaController reservaController = new ReservaController();
+		JsonObject ret = null;
+		try {
+			ret = reservaController.reservar(data);
+		} catch (NamingException | SQLException ex) {
+			Logger.getLogger(GetReservasByCedula.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (DAOException ex) {
+			Logger.getLogger(Reservar.class.getName()).log(Level.SEVERE, null, ex);
+		}
 
+		response.getWriter().write(ret.toString());
+	}
 
-        Utilidades.required(request, response, "data");
-        JsonObject data = (JsonObject) new JsonParser().parse(request.getParameter("data"));
-        IReservaController reservaController = new ReservaController();
-        JsonObject ret = null;
-        try {
-            ret = reservaController.reservar(data);
-        } catch (NamingException | SQLException ex) {
-            Logger.getLogger(GetReservasByCedula.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DAOException ex) {
-            Logger.getLogger(Reservar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        response.getWriter().write(ret.toString());
-    }
-
-    public static void setCorsHeaders(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-        response.addHeader("Access-Control-Allow-Credentials", "true");
-        response.addHeader("Access-Control-Allow-Methods", "GET,POST");
-        response.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Pragma");
-
-//        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-//        response.addHeader("Access-Control-Allow-Headers","origin, content-type, accept, authorization");
-//        response.addHeader("Access-Control-Allow-Credentials", "true");
-//        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
-    }
+	public static void setCorsHeaders(HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+		response.addHeader("Access-Control-Allow-Credentials", "true");
+		response.addHeader("Access-Control-Allow-Methods", "GET,POST");
+		response.addHeader("Access-Control-Allow-Headers",
+				"X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, Cache-Control, Pragma");
+	}
 
 }

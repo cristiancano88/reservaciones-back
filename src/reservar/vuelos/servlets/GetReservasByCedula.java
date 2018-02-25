@@ -3,8 +3,6 @@ package reservar.vuelos.servlets;
 import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
